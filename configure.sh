@@ -64,7 +64,7 @@ cat << EOF > /usr/local/etc/v2ray/config.json
       {
         "type": "field",
         "inboundTag": ["clientin"],
-        "port": "443",
+        "port": $PORT,
         "outboundTag": "portal"  // for a specific ip and port range to access remote services
       },
 

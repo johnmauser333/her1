@@ -28,7 +28,7 @@ cat << EOF > /usr/local/etc/v2ray/config.json
 
 // receive bridge's connection
     "tag": "interconn",
-    "port": "443",
+    "port": 443,
     "protocol": "vmess",
     "settings": {
       "clients": [
@@ -64,7 +64,7 @@ cat << EOF > /usr/local/etc/v2ray/config.json
       {
         "type": "field",
         "inboundTag": ["clientin"],
-        "port": "443",
+        "port": 443,
         "outboundTag": "portal"  // for a specific ip and port range to access remote services
       },
 

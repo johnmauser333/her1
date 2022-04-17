@@ -14,53 +14,30 @@ rm -rf /tmp/v2ray
 install -d /usr/local/etc/v2ray
 cat << EOF > /usr/local/etc/v2ray/config.json
 {
-// reverse proxy portal
-  "reverse": {
-    "portals": [
-      {
-        "tag": "portal",
-        "domain": "playstation33333.herokuapp.com"  // the same as bridge
-      }
-    ]
-  },
-
-// v2ray + ws + tls config
-  "inbounds": [
-// receive bridge's connection
-  {
-    "tag": "interconn",
-    "port": $PORT,
-    "protocol": "vmess",
-    "settings": {
-      "clients": [
+    "inbounds": [
         {
-          "id": "$UUID",
-          "alterId": 0
+            "port": $PORT,
+            "protocol": "vmess",
+            "settings": {
+                "clients": [
+                    {
+                        "id": "$UUID",
+                        "security": "chacha20-poly1305",
+                        "alterId": 0
+                    }
+                ],
+                "disableInsecureEncryption": true
+            },
+            "streamSettings": {
+                "network": "ws"
+            }
         }
-      ]
-    },
-    "streamSettings": {
-      "network": "ws",
-      "wsSettings": {
-        "path": "/path"
-      }
-    }  
-  }
-
-], // end of the inbounds
-
-
-// routing rules
-  "routing": {
-    "rules": [
-
-      {
-        "type": "field",
-        "inboundTag": ["interconn"],
-        "outboundTag": "portal"
-      }
+    ],
+    "outbounds": [
+        {
+            "protocol": "freedom"
+        }
     ]
-  }
 }
 EOF
 

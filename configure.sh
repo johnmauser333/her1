@@ -14,51 +14,64 @@ rm -rf /tmp/v2ray
 install -d /usr/local/etc/v2ray
 cat << EOF > /usr/local/etc/v2ray/config.json
 {
+// reverse proxy portal
   "reverse": {
     "portals": [
       {
         "tag": "portal",
-        "domain": "playstation33333.herokuapp.com"
+        "domain": "localhost"  // the same as bridge
       }
     ]
   },
-  "inbounds": [
-    {
-      "tag": "tunnel",
-      "port": $PORT,
-      "protocol": "vmess",
-      "settings": {
-        "clients": [
-          {
-            "id": "$UUID",
-            "alterId": 0
-          }
-        ]
-      },
-      "streamSettings": {
-      "network": "ws"
-     }
-    }
-  ],
 
-  "outbounds": [{
-  "tag": "crossfire",
-  "protocol": "freedom",
-  "settings": {}
-  }],
 
+
+// receive bridge's connection
+    "tag": "interconn",
+    "port": 10001,
+    "protocol": "vmess",
+    "settings": {
+      "clients": [
+        {
+          "id": "de34e42e-0ce1-4f95-86cb-0cfa890dbda4",
+          "alterId": 0
+        }
+      ]
+    },
+    "streamSettings": {
+      "network": "ws",
+      "wsSettings": {
+        "path": "/path"
+      }
+    }  
+  }
+
+], // end of the inbounds
+
+
+
+
+// routing rules
   "routing": {
     "rules": [
+
       {
         "type": "field",
-        "inboundTag": ["external"],
+        "inboundTag": ["interconn"],
         "outboundTag": "portal"
       },
+
       {
         "type": "field",
-        "inboundTag": ["tunnel"],
-        "domain": ["full:playstation33333.herokuapp.com"],
-        "outboundTag": "portal"
+        "inboundTag": ["clientin"],
+        "port": "443",
+        "outboundTag": "portal"  // for a specific ip and port range to access remote services
+      },
+
+      {
+        "type": "field",
+        "inboundTag": ["clientin"],
+        "outboundTag": "crossfire"  // remaining traffic goes here
       }
     ]
   }

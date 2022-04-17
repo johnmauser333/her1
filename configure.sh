@@ -19,7 +19,7 @@ cat << EOF > /usr/local/etc/v2ray/config.json
     "portals": [
       {
         "tag": "portal",
-        "domain": "localhost"  // the same as bridge
+        "domain": "0.0.0.0"  // the same as bridge
       }
     ]
   },

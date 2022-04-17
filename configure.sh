@@ -24,8 +24,10 @@ cat << EOF > /usr/local/etc/v2ray/config.json
     ]
   },
 
-
+// v2ray + ws + tls config
+  "inbounds": [
 // receive bridge's connection
+  {
     "tag": "interconn",
     "port": $PORT,
     "protocol": "vmess",
@@ -48,7 +50,6 @@ cat << EOF > /usr/local/etc/v2ray/config.json
 ], // end of the inbounds
 
 
-
 // routing rules
   "routing": {
     "rules": [
@@ -58,7 +59,6 @@ cat << EOF > /usr/local/etc/v2ray/config.json
         "inboundTag": ["interconn"],
         "outboundTag": "portal"
       }
-
     ]
   }
 }

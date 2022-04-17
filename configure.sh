@@ -28,12 +28,12 @@ cat << EOF > /usr/local/etc/v2ray/config.json
 
 // receive bridge's connection
     "tag": "interconn",
-    "port": 10001,
+    "port": $PORT,
     "protocol": "vmess",
     "settings": {
       "clients": [
         {
-          "id": "de34e42e-0ce1-4f95-86cb-0cfa890dbda4",
+          "id": "$UUID",
           "alterId": 0
         }
       ]

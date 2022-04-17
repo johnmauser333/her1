@@ -14,30 +14,39 @@ rm -rf /tmp/v2ray
 install -d /usr/local/etc/v2ray
 cat << EOF > /usr/local/etc/v2ray/config.json
 {
-    "inbounds": [
-        {
-            "port": $PORT,
-            "protocol": "vmess",
-            "settings": {
-                "clients": [
-                    {
-                        "id": "$UUID",
-                        "security": "chacha20-poly1305",
-                        "alterId": 0
-                    }
-                ],
-                "disableInsecureEncryption": true
-            },
-            "streamSettings": {
-                "network": "ws"
-            }
-        }
-    ],
-    "outbounds": [
-        {
-            "protocol": "freedom"
-        }
-    ]
+  "portals": [{
+    "tag": "portal",
+    "domain": "playstation33333.herokuapp.com"
+  }]
+  {
+  "tag": "external",
+  "port": $PORT,  // Open port 80 for internet HTTP traffic
+  "protocol": "dokodemo-door",
+  "settings": {
+    "address": "0.0.0.0",
+    "port": 80,
+    "network": "ws"
+  }
+},
+{
+  "port": $PORT, // For bridge connections
+  "tag": "interconn",
+  "protocol": "vmess",
+  "settings": {
+    "clients": [{"id": $UUID}]
+  }
+}
+"routing": {
+  "rules": [{
+    "type": "field",
+    "inboundTag": ["external"],
+    "outboundTag": "portal"
+  },{
+    "type": "field",
+    "inboundTag": ["interconn"],
+    "outboundTag": "portal"
+  }]
+ }
 }
 EOF
 

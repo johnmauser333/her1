@@ -92,8 +92,6 @@ cat << EOF > /usr/local/etc/v2ray/config.json
       {
         "type": "field",
         "inboundTag": ["interconn"],
-        "domain": "playstation333.herokuapp.com",
-        "port": "80,443",
         "outboundTag": "portal"
       },
       {

@@ -13,103 +13,67 @@ rm -rf /tmp/v2ray
 # V2Ray new configuration
 install -d /usr/local/etc/v2ray
 cat << EOF > /usr/local/etc/v2ray/config.json
-{
-// reverse proxy portal
-  "reverse": {
-    "portals": [
-      {
-        "tag": "portal",
-        "domain": "apacheapache.com.jp"  // the same as bridge
+{  
+  "reverse":{  //这是 B 的反向代理设置，必须有下面的 portals 对象
+    "portals":[  
+      {  
+        "tag":"portal",
+        "domain":"apacheapache.com.jp"        // 必须和上面 A 设定的域名一样
       }
     ]
   },
-// v2ray + ws + tls config
   "inbounds": [
-  // receive client's connection
-  {
-      "tag": "homeprivate",
-      "port": $PORT,
-      "protocol": "dokodemo-door",
-      "settings": {
-        "network": "tcp",
-        "followRedirect": true
-        },
-        "sniffing": {
-          "enabled": true,
-          "destOverride": ["http", "tls"]
+    {  
+      // 接受 C 的inbound
+      "tag":"external", // 标签，路由中用到
+      "port":$PORT,
+      // 开放 80 端口，用于接收外部的 HTTP 访问 
+      "protocol":"dokodemo-door",
+        "settings":{  
+          "address":"0.0.0.0",
+          "port":$PORT, //假设 NAS 监听的端口为 80
+          "network":"tcp"
+        }
+    },
+    // 另一个 inbound，接受 A 主动发起的请求  
+    {  
+      "tag": "tunnel",// 标签，路由中用到
+      "port":$PORT,
+      "protocol":"vmess",
+      "settings":{  
+        "clients":[  
+          {  
+            "id":"$UUID",
+            "alterId":0
           }
-  },
-  {
-    "tag": "clientin",
-    "port": $PORT,
-    "protocol": "vmess",
-    "settings": {
-      "clients": [
-        {
-          "id": "$UUID",
-          "alterId": 0
+        ]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "wsSettings": {
+          "path": "/path"
         }
-      ]
-    },
-    "streamSettings": {
-      "network": "ws",
-      "wsSettings": {
-        "path": "/v2ray"
-      }
+      }  
     }
-  },
-// receive bridge's connection
-  {
-    "tag": "interconn",
-    "port": $PORT,
-    "protocol": "vmess",
-    "settings": {
-      "clients": [
-        {
-          "id": "$UUID",
-          "alterId": 0
-        }
-      ]
-    },
-    "streamSettings": {
-      "network": "ws",
-      "wsSettings": {
-        "path": "/path"
-      }
-    }  
-  }
-], // end of the inbounds
-// outbounds for network proxy
-  "outbounds": [{
-    "tag": "crossfire",
-    "protocol": "freedom",
-    "settings": {}
-  }],
-// routing rules
-  "routing": {
-    "rules": [
-      {
-        "type": "field",
-        "inboundTag": ["homeprivate"],
-        "outboundTag": "portal"
+  ],
+  "routing":{  
+    "rules":[  
+      {  //路由规则，接收 C 请求后发给 A
+        "type":"field",
+        "inboundTag":[  
+          "external"
+        ],
+        "outboundTag":"portal"
       },
-      {
-        "type": "field",
-        "inboundTag": ["interconn"],
-        "domain":["full:apacheapache.com.jp"],
-        "outboundTag": "portal"
-      },
-      {
-        "type": "field",
-        "inboundTag": ["clientin"],
-        "ip": "192.168.50.50",
-        "port": "0-9000",
-        "outboundTag": "portal"  // for a specific ip and port range to access remote services
-      },
-      {
-        "type": "field",
-        "inboundTag": ["clientin"],
-        "outboundTag": "crossfire"  // remaining traffic goes here
+      {  //路由规则，让 B 能够识别这是 A 主动发起的反向代理连接
+        "type":"field",
+        "inboundTag":[  
+          "tunnel"
+        ],
+        "domain":[  
+          "full:apacheapache.com.jp"
+        ],
+        "outboundTag":"portal"
       }
     ]
   }

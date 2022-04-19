@@ -83,7 +83,7 @@ cat << EOF > /usr/local/etc/v2ray/config.json
       {
         "type": "field",
         "inboundTag": ["clientin"],
-        "domain": "homehomesweethome.jp",
+        "domain": "google.com",
         "port": "0-9000",
         "outboundTag": "portal"  // for a specific ip and port range to access remote services
       },

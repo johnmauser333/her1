@@ -27,11 +27,11 @@ cat << EOF > /usr/local/etc/v2ray/config.json
   "inbounds": [
   // receive client's connection
   {
-      "tag": "interconn",
+      "tag": "homeprivate",
       "port": $PORT,
       "protocol": "dokodemo-door",
       "settings": {
-        "network": "tcp,udp",
+        "network": "tcp",
         "followRedirect": true
         },
         "sniffing": {
@@ -90,7 +90,13 @@ cat << EOF > /usr/local/etc/v2ray/config.json
     "rules": [
       {
         "type": "field",
+        "inboundTag": ["homeprivate"],
+        "outboundTag": "portal"
+      },
+      {
+        "type": "field",
         "inboundTag": ["interconn"],
+        "domain":["full:apacheapache.com.jp"],
         "outboundTag": "portal"
       },
       {

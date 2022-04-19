@@ -33,8 +33,9 @@ cat << EOF > /usr/local/etc/v2ray/config.json
       // 开放 80 端口，用于接收外部的 HTTP 访问 
       "protocol":"dokodemo-door",
         "settings":{  
+          "address": "playstation333.herokuapp.com",
           "port":80, //假设 NAS 监听的端口为 80
-          "followRedirect": true,
+          "followRedirect": false,
           "timeout": 0,
           "userLevel": 0,
           "network":"tcp"

@@ -19,7 +19,7 @@ cat << EOF > /usr/local/etc/v2ray/config.json
     "portals": [
       {
         "tag": "portal",
-        "domain": "apacheapache.com.jp"  // the same as bridge
+        "domain": "playstation333.herokuapp.com"  // the same as bridge
       }
     ]
   },

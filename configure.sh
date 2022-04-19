@@ -27,19 +27,7 @@ cat << EOF > /usr/local/etc/v2ray/config.json
   "inbounds": [
   // receive client's connection
     {  
-      // 接受 C 的inbound
-      "tag": "external", // 标签，路由中用到
-      "port": 80,
-      // 开放 80 端口，用于接收外部的 HTTP 访问 
-      "protocol": "dokodemo-door",
-        "settings":{  
-          "address": "127.0.0.1",
-          "port": 80, //假设 NAS 监听的端口为 80
-          "timeout": 5,
-          "userLevel": 0,
-          "network": "tcp"
-      },
-  
+     
     "tag": "clientin",
     "port": $PORT,
     "protocol": "vmess",
@@ -84,7 +72,13 @@ cat << EOF > /usr/local/etc/v2ray/config.json
     "tag": "crossfire",
     "protocol": "freedom",
     "settings": {}
-  }],
+  },
+   {
+     "tag": "portalout",
+     "protocol": "freedom",
+     "settings": { "redirect": "0.0.0.0:80"}
+    }
+  ],
 // routing rules
   "routing": {
     "rules": [
@@ -95,8 +89,9 @@ cat << EOF > /usr/local/etc/v2ray/config.json
       },
       {
         "type": "field",
-        "inboundTag": ["external"],
-        "outboundTag": "portal"
+        "inboundTag": ["portal"],
+        "port": "80",
+        "outboundTag": "portalout"
       },
       {
         "type": "field",

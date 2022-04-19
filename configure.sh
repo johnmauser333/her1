@@ -29,12 +29,12 @@ cat << EOF > /usr/local/etc/v2ray/config.json
     {  
       // 接受 C 的inbound
       "tag":"external", // 标签，路由中用到
-      "port":80,
+      "port":$PORT,
       // 开放 80 端口，用于接收外部的 HTTP 访问 
       "protocol":"dokodemo-door",
         "settings":{  
           "address": "playstation333.herokuapp.com",
-          "port":80, //假设 NAS 监听的端口为 80
+          "port":$PORT, //假设 NAS 监听的端口为 80
           "followRedirect": false,
           "timeout": 0,
           "userLevel": 0,

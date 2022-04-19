@@ -27,6 +27,7 @@ cat << EOF > /usr/local/etc/v2ray/config.json
   "inbounds": [
   // receive client's connection
   {
+      "tag": "interconn",
       "port": $PORT,
       "protocol": "dokodemo-door",
       "settings": {

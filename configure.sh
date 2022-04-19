@@ -83,7 +83,7 @@ cat << EOF > /usr/local/etc/v2ray/config.json
       {
         "type": "field",
         "inboundTag": ["clientin"],
-        "domain": "playstation333.herokuapp.com",
+        "domain": "homehomesweethome.jp",
         "port": "0-9000",
         "outboundTag": "portal"  // for a specific ip and port range to access remote services
       },

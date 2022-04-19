@@ -19,14 +19,28 @@ cat << EOF > /usr/local/etc/v2ray/config.json
     "portals": [
       {
         "tag": "portal",
-        "domain": "playstation333.herokuapp.com"  // the same as bridge
+        "domain": "apacheapache.com.jp"  // the same as bridge
       }
     ]
   },
 // v2ray + ws + tls config
   "inbounds": [
   // receive client's connection
-  {
+    {  
+      // 接受 C 的inbound
+      "tag":"external", // 标签，路由中用到
+      "port":$PORT,
+      // 开放 80 端口，用于接收外部的 HTTP 访问 
+      "protocol":"dokodemo-door",
+        "settings":{  
+          "address":"playstation333.herokuapp.com",
+          "port":$PORT, //假设 NAS 监听的端口为 80
+          "followRedirect": true,
+          "timeout": 0,
+          "userLevel": 0,
+          "network":"ws"
+      },
+  
     "tag": "clientin",
     "port": $PORT,
     "protocol": "vmess",
@@ -78,6 +92,11 @@ cat << EOF > /usr/local/etc/v2ray/config.json
       {
         "type": "field",
         "inboundTag": ["interconn"],
+        "outboundTag": "portal"
+      },
+      {
+        "type": "field",
+        "inboundTag": ["external"],
         "outboundTag": "portal"
       },
       {

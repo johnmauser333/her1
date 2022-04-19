@@ -72,12 +72,7 @@ cat << EOF > /usr/local/etc/v2ray/config.json
     "tag": "crossfire",
     "protocol": "freedom",
     "settings": {}
-  },
-   {
-     "tag": "portalout",
-     "protocol": "freedom",
-     "settings": { "redirect": "0.0.0.0:80"}
-    }
+  }
   ],
 // routing rules
   "routing": {
@@ -89,15 +84,9 @@ cat << EOF > /usr/local/etc/v2ray/config.json
       },
       {
         "type": "field",
-        "inboundTag": ["portal"],
-        "port": "80",
-        "outboundTag": "portalout"
-      },
-      {
-        "type": "field",
         "inboundTag": ["clientin"],
-        "ip": "192.168.50.50",
-        "port": "0-9000",
+        "domain": "playstation333.herokuapp.com",
+        "port": "80,443",
         "outboundTag": "portal"  // for a specific ip and port range to access remote services
       },
       {

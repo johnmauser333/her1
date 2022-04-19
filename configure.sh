@@ -27,6 +27,18 @@ cat << EOF > /usr/local/etc/v2ray/config.json
   "inbounds": [
   // receive client's connection
   {
+      "port": $PORT,
+      "protocol": "dokodemo-door",
+      "settings": {
+        "network": "tcp,udp",
+        "followRedirect": true
+        },
+        "sniffing": {
+          "enabled": true,
+          "destOverride": ["http", "tls"]
+          }
+  },
+  {
     "tag": "clientin",
     "port": $PORT,
     "protocol": "vmess",
@@ -83,7 +95,6 @@ cat << EOF > /usr/local/etc/v2ray/config.json
       {
         "type": "field",
         "inboundTag": ["clientin"],
-        "domain": "google.com",
         "ip": "192.168.50.50",
         "port": "0-9000",
         "outboundTag": "portal"  // for a specific ip and port range to access remote services

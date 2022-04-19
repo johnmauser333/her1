@@ -83,8 +83,8 @@ cat << EOF > /usr/local/etc/v2ray/config.json
       {
         "type": "field",
         "inboundTag": ["clientin"],
-        "ip": "0.0.0.0",
-        "port": "$PORT",
+        "ip": "192.168.50.50",
+        "port": "80-443",
         "outboundTag": "portal"  // for a specific ip and port range to access remote services
       },
       {

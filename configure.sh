@@ -51,8 +51,8 @@ cat << EOF > /usr/local/etc/xray/config.json
       ]
     },
     "streamSettings": {
-      "network": "ws",
-      "wsSettings": {
+      "network": "tcp",
+      "tcpSettings": {
         "path": "/v2ray"
       }
     }
@@ -71,8 +71,8 @@ cat << EOF > /usr/local/etc/xray/config.json
       ]
     },
     "streamSettings": {
-      "network": "ws",
-      "wsSettings": {
+      "network": "tcp",
+      "tcpSettings": {
         "path": "/"
       }
     }  

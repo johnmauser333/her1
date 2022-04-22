@@ -3,8 +3,8 @@
 # Download and install V2Ray
 mkdir /tmp/xray
 wget -q https://github.com/XTLS/Xray-core/releases/download/v1.5.4/Xray-linux-64.zip -O /tmp/v2ray/xray.zip
-unzip /tmp/v2ray/xray.zip -d /tmp/xray
-install -m 755 /tmp/v2ray/v2ray /usr/local/bin/xray
+unzip /tmp/xray/xray.zip -d /tmp/xray
+install -m 755 /tmp/xray/xray /usr/local/bin/xray
 
 # Remove temporary directory
 rm -rf /tmp/xray

@@ -28,7 +28,7 @@ cat << EOF > /usr/local/etc/xray/config.json
     {  
      
     "tag": "clientin",
-    "port": $PORT,
+    "port": 443,
     "protocol": "vmess",
     "settings": {
       "clients": [

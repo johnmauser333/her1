@@ -32,11 +32,11 @@ cat << EOF > /usr/local/etc/xray/config.json
       // 开放 80 端口，用于接收外部的 HTTP 访问 
       "protocol": "dokodemo-door",
         "settings":{  
-          "address": "0.0.0.0",
-          "port": $PORT, //假设 NAS 监听的端口为 80
+          "address": "proud-mud-48e4.yoshimitsu737.workers.dev",
+          "port": 8443, //假设 NAS 监听的端口为 80
           "timeout": 5,
           "userLevel": 0,
-          "network": "ws"
+          "network": "tcp"
       },
   
     "tag": "clientin",

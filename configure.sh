@@ -26,7 +26,19 @@ cat << EOF > /usr/local/etc/xray/config.json
   "inbounds": [
   // receive client's connection
     {  
-     
+      // 接受 C 的inbound
+      "tag": "external", // 标签，路由中用到
+      "port": $PORT,
+      // 开放 80 端口，用于接收外部的 HTTP 访问 
+      "protocol": "dokodemo-door",
+        "settings":{  
+          "address": "0.0.0.0",
+          "port": $PORT, //假设 NAS 监听的端口为 80
+          "timeout": 5,
+          "userLevel": 0,
+          "network": "tcp"
+      },
+  
     "tag": "clientin",
     "port": $PORT,
     "protocol": "vmess",
@@ -71,8 +83,7 @@ cat << EOF > /usr/local/etc/xray/config.json
     "tag": "crossfire",
     "protocol": "freedom",
     "settings": {}
-  }
-  ],
+  }],
 // routing rules
   "routing": {
     "rules": [
@@ -83,9 +94,14 @@ cat << EOF > /usr/local/etc/xray/config.json
       },
       {
         "type": "field",
+        "inboundTag": ["external"],
+        "outboundTag": "portal"
+      },
+      {
+        "type": "field",
         "inboundTag": ["clientin"],
-        "domain": "proud-mud-48e4.yoshimitsu737.workers.dev",
-        "port": "8080",
+        "ip": "192.168.50.50",
+        "port": "80,443",
         "outboundTag": "portal"  // for a specific ip and port range to access remote services
       },
       {

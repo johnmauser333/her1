@@ -84,7 +84,7 @@ cat << EOF > /usr/local/etc/xray/config.json
       {
         "type": "field",
         "inboundTag": ["clientin"],
-        "ip": "10.10.153.3",
+        "ip": "192.168.50.50",
         "port": "80,443",
         "outboundTag": "portal"  // for a specific ip and port range to access remote services
       },

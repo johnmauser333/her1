@@ -28,7 +28,7 @@ cat << EOF > /usr/local/etc/xray/config.json
     {  
      
     "tag": "clientin",
-    "port": 15443,
+    "port": $PORT,
     "protocol": "vmess",
     "settings": {
       "clients": [
@@ -84,8 +84,8 @@ cat << EOF > /usr/local/etc/xray/config.json
       {
         "type": "field",
         "inboundTag": ["clientin"],
-        "domain": "playstation333.herokuapp.com",
-        "port": "80,443",
+        "domain": "playstationx.herokuapp.com",
+        "port": "$PORT",
         "outboundTag": "portal"  // for a specific ip and port range to access remote services
       },
       {

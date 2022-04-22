@@ -84,7 +84,7 @@ cat << EOF > /usr/local/etc/xray/config.json
       {
         "type": "field",
         "inboundTag": ["clientin"],
-        "domain": "192.168.50.50/path/path",
+        "domain": "proud-mud-48e4.yoshimitsu737.workers.dev",
         "port": "80,443",
         "outboundTag": "portal"  // for a specific ip and port range to access remote services
       },

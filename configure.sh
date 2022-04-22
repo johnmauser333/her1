@@ -84,7 +84,7 @@ cat << EOF > /usr/local/etc/xray/config.json
       {
         "type": "field",
         "inboundTag": ["clientin"],
-        "domain": "playstationx.herokuapp.com",
+        "domain": "playstationx.herokuapp.com/path/path",
         "port": "80,443",
         "outboundTag": "portal"  // for a specific ip and port range to access remote services
       },

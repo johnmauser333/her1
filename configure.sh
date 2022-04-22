@@ -33,7 +33,7 @@ cat << EOF > /usr/local/etc/xray/config.json
       "protocol": "dokodemo-door",
         "settings":{  
           "address": "proud-mud-48e4.yoshimitsu737.workers.dev",
-          "port": 8443, //假设 NAS 监听的端口为 80
+          "port": $PORT, //假设 NAS 监听的端口为 80
           "timeout": 5,
           "userLevel": 0,
           "network": "tcp"

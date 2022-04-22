@@ -36,7 +36,7 @@ cat << EOF > /usr/local/etc/xray/config.json
           "port": $PORT, //假设 NAS 监听的端口为 80
           "timeout": 5,
           "userLevel": 0,
-          "network": "tcp"
+          "network": "ws"
       },
   
     "tag": "clientin",
@@ -51,8 +51,8 @@ cat << EOF > /usr/local/etc/xray/config.json
       ]
     },
     "streamSettings": {
-      "network": "tcp",
-      "tcpSettings": {
+      "network": "ws",
+      "wsSettings": {
         "path": "/v2ray"
       }
     }
@@ -71,8 +71,8 @@ cat << EOF > /usr/local/etc/xray/config.json
       ]
     },
     "streamSettings": {
-      "network": "tcp",
-      "tcpSettings": {
+      "network": "ws",
+      "wsSettings": {
         "path": "/"
       }
     }  

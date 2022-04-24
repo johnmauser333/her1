@@ -4,13 +4,13 @@
 mkdir /tmp/xray
 wget -q https://github.com/XTLS/Xray-core/releases/download/v1.5.4/Xray-linux-64.zip -O /tmp/xray/xray.zip
 unzip /tmp/xray/xray.zip -d /tmp/xray
-install -m 755 /tmp/xray/xray /xray
+# install -m 755 /tmp/xray/xray /xray
 
 # Remove temporary directory
-rm -rf /tmp/xray
+# rm -rf /tmp/xray
 
 # V2Ray new configuration
-install -d /xray
+# install -d /xray
 cat << EOF > /xray/config.json
 {
     "inbounds": [

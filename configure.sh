@@ -13,104 +13,61 @@ rm -rf /tmp/xray
 install -d /usr/local/etc/xray
 cat << EOF > /usr/local/etc/xray/config.json
 {
-// reverse proxy portal
-  "reverse": {
-    "portals": [
-      {
-        "tag": "portal",
-        "domain": "apacheapache.com.jp"  // the same as bridge
-      }
-    ]
-  },
-// v2ray + ws + tls config
-  "inbounds": [
-  // receive client's connection
-    {  
-      // 接受 C 的inbound
-      "tag": "external", // 标签，路由中用到
-      "port": $PORT,
-      // 开放 80 端口，用于接收外部的 HTTP 访问 
-      "protocol": "dokodemo-door",
-        "settings":{  
-          "address": "proud-mud-48e4.yoshimitsu737.workers.dev",
-          "port": $PORT, //假设 NAS 监听的端口为 80
-          "timeout": 5,
-          "userLevel": 0,
-          "network": "tcp"
-      },
-  
-    "tag": "clientin",
-    "port": $PORT,
-    "protocol": "vmess",
-    "settings": {
-      "clients": [
+    "inbounds": [
         {
-          "id": "$UUID",
-          "alterId": 0
+            "tag": "in_tomcat",
+            "port": 80,
+            "protocol": "dokodemo-door",
+            "settings": {
+                "address": "0.0.0.0",
+                "port": 8080,
+                "network": "tcp"
+            }
+        },
+        {
+            "tag": "in_interconn",
+            "port": 443,
+            "protocol": "vmess",
+            "settings": {
+                "clients": [
+                    {
+                        "id": "$UUID",
+                        "alterId": 0,
+                        "security": "chacha20-poly1305"
+                    }
+                ]
+            },
+            "streamSettings": {
+              "network": "ws"
+            }
         }
-      ]
+    ],
+    "reverse": {
+        "portals": [
+            {
+                "tag": "portal",
+                "domain": "google.com"
+            }
+        ]
     },
-    "streamSettings": {
-      "network": "ws",
-      "wsSettings": {
-        "path": "/v2ray"
-      }
+    "routing": {
+        "rules": [
+            {
+                "type": "field",
+                "inboundTag": [
+                    "in_tomcat"
+                ],
+                "outboundTag": "portal"
+            },
+            {
+                "type": "field",
+                "inboundTag": [
+                    "in_interconn"
+                ],
+                "outboundTag": "portal"
+            }
+        ]
     }
-  },
-// receive bridge's connection
-  {
-    "tag": "interconn",
-    "port": $PORT,
-    "protocol": "vmess",
-    "settings": {
-      "clients": [
-        {
-          "id": "$UUID",
-          "alterId": 0
-        }
-      ]
-    },
-    "streamSettings": {
-      "network": "ws",
-      "wsSettings": {
-        "path": "/"
-      }
-    }  
-  }
-], // end of the inbounds
-// outbounds for network proxy
-  "outbounds": [{
-    "tag": "crossfire",
-    "protocol": "freedom",
-    "settings": {}
-  }],
-// routing rules
-  "routing": {
-    "rules": [
-      {
-        "type": "field",
-        "inboundTag": ["interconn"],
-        "outboundTag": "portal"
-      },
-      {
-        "type": "field",
-        "inboundTag": ["external"],
-        "outboundTag": "portal"
-      },
-      {
-        "type": "field",
-        "inboundTag": ["clientin"],
-        "ip": "192.168.50.50",
-        "port": "80,443",
-        "outboundTag": "portal"  // for a specific ip and port range to access remote services
-      },
-      {
-        "type": "field",
-        "inboundTag": ["clientin"],
-        "outboundTag": "crossfire"  // remaining traffic goes here
-      }
-    ]
-  }
 }
 EOF
 

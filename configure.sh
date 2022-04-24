@@ -21,7 +21,7 @@ cat << EOF > /usr/local/etc/xray/config.json
             "settings": {
                 "address": "127.0.0.1",
                 "port": 8080,
-                "network": "tcp,udp"
+                "network": "ws"
             }
         },
         {

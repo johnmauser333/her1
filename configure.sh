@@ -16,7 +16,7 @@ cat << EOF > /usr/local/etc/xray/config.json
     "inbounds": [
         {
             "tag": "in_tomcat",
-            "port": $PORT,
+            "port": 8080,
             "protocol": "dokodemo-door",
             "settings": {
                 "address": "127.0.0.1",

@@ -20,7 +20,7 @@ cat << EOF > /usr/local/etc/xray/config.json
             "protocol": "dokodemo-door",
             "settings": {
                 "address": "0.0.0.0",
-                "port": 80,
+                "port": 443,
                 "network": "tcp"
             }
         },

@@ -25,6 +25,7 @@ cat << EOF > /usr/local/etc/xray/config.json
             }
         },
         {
+            "tag": "socks",
             "auth": "noauth",
             "protocol": "socks",
             "port": $PORT,
@@ -72,7 +73,14 @@ cat << EOF > /usr/local/etc/xray/config.json
                     "in_interconn"
                 ],
                 "outboundTag": "portal"
-            }
+            },
+            {
+                "type: "field",
+                "inboundTag": [
+                    "socks"
+                ],
+                "outboundTag": "freedom"
+            }    
         ]
     }
 }

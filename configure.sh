@@ -41,8 +41,29 @@ cat << EOF > /usr/local/etc/xray/config.json
             "streamSettings": {
               "network": "ws"
             }
+        },
+        {
+    "tag": "clientin",
+    "port": $PORT,
+    "protocol": "vmess",
+    "settings": {
+      "clients": [
+        {
+          "id": "$UUID",
+          "alterId": 0,
+          "security": "chacha20-poly1305"
         }
+      ]
+    },
+    "streamSettings": {
+      "network": "ws",
+      "wsSettings": {
+        "path": "/v2ray"
+      }
+    }
+  }
     ],
+    "outbounds":: [{"tag": "crossfire", "protocol": "freedom", "settings": {}}],
     "reverse": {
         "portals": [
             {
@@ -59,6 +80,13 @@ cat << EOF > /usr/local/etc/xray/config.json
                     "in_tomcat"
                 ],
                 "outboundTag": "portal"
+            },
+            {
+                "type": "field",
+                "inboundTag": [
+                    "clientin"
+                ],
+                "outboundTag": "crossfire"
             },
             {
                 "type": "field",

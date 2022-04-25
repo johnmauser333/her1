@@ -22,9 +22,13 @@ cat << EOF > /usr/local/etc/xray/config.json
                 "address": "127.0.0.1",
                 "port": 8080,
                 "network": "tcp"
+            },
+            "sniffing": {
+              "enabled": true,
+              "destOverride": ["http", "tls"]
             }
+        
         },
-
         {
             "tag": "in_interconn",
             "port": $PORT,
@@ -66,7 +70,7 @@ cat << EOF > /usr/local/etc/xray/config.json
                     "in_interconn"
                 ],
                 "outboundTag": "portal"
-            } 
+            }
         ]
     }
 }

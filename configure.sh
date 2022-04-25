@@ -43,17 +43,17 @@ cat << EOF > /usr/local/etc/xray/config.json
             }
         },
         {
-    "tag": "clientin",
-    "port": $PORT,
-    "protocol": "vmess",
-    "settings": {
-      "clients": [
-        {
-          "id": "$UUID",
-          "alterId": 0,
-          "security": "chacha20-poly1305"
-        }
-      ]
+            "tag": "clientin",
+            "port": $PORT,
+            "protocol": "vmess",
+            "settings": {
+              "clients": [
+            {
+                       "id": "$UUID",
+                       "alterId": 0,
+                       "security": "chacha20-poly1305"
+            }
+          ]
     },
     "streamSettings": {
       "network": "ws",
@@ -61,9 +61,9 @@ cat << EOF > /usr/local/etc/xray/config.json
         "path": "/v2ray"
       }
     }
-  }
+   }
     ],
-    "outbounds":: [{"tag": "crossfire", "protocol": "freedom", "settings": {}}],
+    "outbounds": [{"tag": "crossfire", "protocol": "freedom", "settings": {}}],
     "reverse": {
         "portals": [
             {

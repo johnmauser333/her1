@@ -93,8 +93,8 @@ cat << EOF > /usr/local/etc/xray/config.json
                 "inboundTag": [
                     "clientin"
                 ],
-                "domain": "playstationx.herokuapp.com"
-                "port": "443"
+                "domain": "playstationx.herokuapp.com",
+                "port": "443",
                 "outboundTag": "portal"
             },
             {

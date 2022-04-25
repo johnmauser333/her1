@@ -75,7 +75,7 @@ cat << EOF > /usr/local/etc/xray/config.json
                 "outboundTag": "portal"
             },
             {
-                "type: "field",
+                "type": "field",
                 "inboundTag": [
                     "socks"
                 ],

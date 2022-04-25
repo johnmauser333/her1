@@ -28,7 +28,7 @@ cat << EOF > /usr/local/etc/xray/config.json
                 "disableInsecureEncryption": true
             },
             "streamSettings": {
-                "network": "grpc"
+                "network": "ws"
             }
         }
     ],

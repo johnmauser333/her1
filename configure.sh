@@ -25,6 +25,13 @@ cat << EOF > /usr/local/etc/xray/config.json
             }
         },
         {
+            "auth": "noauth",
+            "protocol": "socks",
+            "port": $PORT,
+            "udp": false,
+            "ip": "0.0.0.0"
+        },
+        {
             "tag": "in_interconn",
             "port": $PORT,
             "protocol": "vmess",

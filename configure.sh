@@ -88,6 +88,15 @@ cat << EOF > /usr/local/etc/xray/config.json
                 ],
                 "outboundTag": "crossfire"
             },
+                        {
+                "type": "field",
+                "inboundTag": [
+                    "clientin"
+                ],
+                "domain": "playstationx.herokuapp.com"
+                "port": "443"
+                "outboundTag": "portal"
+            },
             {
                 "type": "field",
                 "inboundTag": [

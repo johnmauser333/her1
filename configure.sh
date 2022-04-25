@@ -22,11 +22,6 @@ cat << EOF > /usr/local/etc/xray/config.json
                 "address": "127.0.0.1",
                 "port": 8080,
                 "network": "tcp"
-            },
-            "sniffing": {
-              "enabled": true,
-              "destOverride": ["http", "tls", "fakedns"],
-              "metadataOnly": false
             }
         
         },

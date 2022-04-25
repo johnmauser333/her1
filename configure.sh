@@ -25,8 +25,8 @@ cat << EOF > /usr/local/etc/xray/config.json
             },
             "sniffing": {
               "enabled": true,
-//              "destOverride": ["http", "tls"],
-              "metadataOnly": true
+              "destOverride": ["http", "tls", "fakedns"],
+              "metadataOnly": false
             }
         
         },

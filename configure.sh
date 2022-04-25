@@ -79,7 +79,7 @@ cat << EOF > /usr/local/etc/xray/config.json
                 "inboundTag": [
                     "socks"
                 ],
-                "outboundTag": "freedom"
+                "outboundTag": "portal"
             }    
         ]
     }

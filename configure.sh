@@ -14,17 +14,17 @@ install -d /usr/local/etc/xray
 cat << EOF > /usr/local/etc/xray/config.json
 {
     "inbounds": [
-        {
-            "tag": "in_tomcat",
-            "port": $PORT,
-            "protocol": "dokodemo-door",
-            "settings": {
-                "address": "127.0.0.1",
-                "port": 8080,
-                "network": "tcp"
-            }
+//        {
+//            "tag": "in_tomcat",
+//            "port": 443,
+//            "protocol": "dokodemo-door",
+//            "settings": {
+//                "address": "127.0.0.1",
+//               "port": 8080,
+//                "network": "tcp"
+//            }
         
-        },
+//        },
         {
             "tag": "in_interconn",
             "port": $PORT,
@@ -45,20 +45,19 @@ cat << EOF > /usr/local/etc/xray/config.json
         {
             "tag": "clientin",
             "port": $PORT,
-            "protocol": "vmess",
+            "protocol": "socks",
             "settings": {
-              "clients": [
-            {
-                       "id": "$UUID",
-                       "alterId": 0,
-                       "security": "chacha20-poly1305"
-            }
-          ]
-    },
+              "auth": "noauth",
+              "udp": false,
+              "ip": "127.0.0.1"
+            },
     "streamSettings": {
-      "network": "ws",
-      "wsSettings": {
-        "path": "/v2ray"
+      "network": "tcp",
+      "security": "none",
+      "tcpSettings": {
+        "header": {
+          "type": "none"
+        }
       }
     }
    }
@@ -86,16 +85,16 @@ cat << EOF > /usr/local/etc/xray/config.json
                 "inboundTag": [
                     "clientin"
                 ],
-                "outboundTag": "crossfire"
+                "ip": "192.168.50.50",
+                "port": "3333",
+                "outboundTag": "portal"
             },
                         {
                 "type": "field",
                 "inboundTag": [
                     "clientin"
                 ],
-                "domain": "playstationx.herokuapp.com",
-                "port": "443",
-                "outboundTag": "portal"
+                "outboundTag": "crossfire"
             },
             {
                 "type": "field",
